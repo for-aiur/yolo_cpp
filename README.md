@@ -16,7 +16,7 @@ For questions or issues please use the [Google Group](https://groups.google.com/
 ### Requirements
 * OpenCV
 * CUDA
-* phteads
+* pthreads
 
 As opposed to the original darknet, it is not possible to compile without CUDA and OpenCV.
 
