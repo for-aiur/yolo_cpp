@@ -13,6 +13,12 @@ For more information see the [Darknet project website](http://pjreddie.com/darkn
 
 For questions or issues please use the [Google Group](https://groups.google.com/forum/#!forum/darknet).
 
+### Requirements
+* OpenCV
+* CUDA
+
+As opposed to the original darknet, it is not possible to compile without CUDA and OpenCV.
+
 ### Usage
 
 ```sh
