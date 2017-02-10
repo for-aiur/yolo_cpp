@@ -1,7 +1,7 @@
 # yolo_cpp
 C++ed version of Darknet
 
-This is a repository for the developers who needs to integrate yolo into their c++ projects. 
+This is a repository for the developers who need to integrate yolo into their c++ projects. 
 Only contribution to the original darknet code is a simple wrapper class around object detection functionality. 
 You can immediately start building up a cpp project based on [YOLO](http://pjreddie.com/darknet) object detection. 
 
