@@ -13,8 +13,9 @@
 #include <image.h>
 
 #include <object.h>
+#include <opencv2/highgui/highgui.hpp>
 
-std::string greet(float val, std::string path);
+#include <boost/python/numeric.hpp>
 
 class Yolo {
 public:
@@ -57,6 +58,15 @@ private:
     //Avoid copy by keeping these unimplemented
     const Yolo& operator=(const Yolo& rhs);
     Yolo(const Yolo& copy);
+};
+
+struct YoloPython{
+	YoloPython();
+	void setThreshold(float val);
+	int detect(std::string path);
+	float getComponent(int bb_idx, int component_idx);
+	Yolo* yolo;
+        std::vector<DetectedObject> objects;
 };
 
 

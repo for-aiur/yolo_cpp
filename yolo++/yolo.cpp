@@ -3,11 +3,41 @@
 
 #include <opencv2/highgui/highgui.hpp>
 
-std::string greet(float val, std::string str)
+YoloPython::YoloPython(){
+	yolo = new Yolo();
+   	yolo->setConfigFilePath("../../cfg/tiny-yolo-tayse.cfg");
+    	yolo->setDataFilePath("../../cfg/tayse.data");
+    	yolo->setWeightFilePath("/home/yildirim/Dropbox/tayse/models/tiny-yolo-tayse_16000.weights");
+    	yolo->setAlphabetPath("../../data/labels/");
+    	yolo->setNameListFile("../../data/tayse.names");
+    	yolo->setThreshold(0.16);
+}
+
+void YoloPython::setThreshold(float val){
+	yolo->setThreshold(val);
+}
+
+int YoloPython::detect(std::string path) {
+                cv::Mat img = cv::imread(path.c_str());
+		cv::resize(img, img, cv::Size(412,412));
+                yolo->detect(img, objects);
+                return objects.size();
+}
+
+float YoloPython::getComponent(int bb_idx, int component_idx) 
 {
-	Yolo yolo;
-	yolo.setThreshold(val);
-        return std::to_string(yolo.getThreshold());
+	if( bb_idx < 0 || bb_idx >= objects.size())
+		return 0.0;
+
+	if( component_idx == 0 )
+		return objects[bb_idx].bounding_box.x;
+	if( component_idx == 1 )
+		return objects[bb_idx].bounding_box.y;
+	if( component_idx == 2 )
+		return objects[bb_idx].bounding_box.width;
+	if( component_idx == 3 )
+		return objects[bb_idx].bounding_box.height;
+	return 0.0f;
 }
 
 Yolo::Yolo() : thresh(.24f),

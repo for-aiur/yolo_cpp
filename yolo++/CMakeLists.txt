@@ -25,9 +25,9 @@ find_package(PythonLibs 2.7 REQUIRED)
 include_directories(${PYTHON_INCLUDE_DIRS})
 find_package(Boost COMPONENTS python REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
-add_library(greet_ext SHARED greet_ext.cpp)
-target_link_libraries(greet_ext ${Boost_LIBRARIES} ${MODULENAME})
-set_target_properties(greet_ext PROPERTIES PREFIX "")
+add_library(yolopy SHARED yolopy.cpp)
+target_link_libraries(yolopy ${Boost_LIBRARIES} ${MODULENAME})
+set_target_properties(yolopy PROPERTIES PREFIX "")
 
 
 

@@ -6,6 +6,8 @@ include_directories(${CUDA_INCLUDE_DIRS})
 
 find_package(PythonLibs 2.7 REQUIRED)
 find_package(Boost COMPONENTS python REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+include_directories(${Boost_INCLUDE_DIR})
 
 add_executable(darknet_cpp darknet++.cpp)
 target_link_libraries(
