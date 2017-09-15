@@ -10,3 +10,4 @@ CMakeCache
 bad.list
 Makefile
 CMakeCache.txt
+*.swp

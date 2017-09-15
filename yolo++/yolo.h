@@ -14,6 +14,8 @@
 
 #include <object.h>
 
+std::string greet(float val, std::string path);
+
 class Yolo {
 public:
 
@@ -29,6 +31,8 @@ public:
     void setHierThreshold(const float thresh);
     void setAlphabetPath(const char* filename);
     void setNms(const float nms);
+
+    float getThreshold();
 
     char** getNames();
 
@@ -54,5 +58,6 @@ private:
     const Yolo& operator=(const Yolo& rhs);
     Yolo(const Yolo& copy);
 };
+
 
 #endif //DARKNET_YOLO_H

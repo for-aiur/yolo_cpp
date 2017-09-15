@@ -3,6 +3,13 @@
 
 #include <opencv2/highgui/highgui.hpp>
 
+std::string greet(float val, std::string str)
+{
+	Yolo yolo;
+	yolo.setThreshold(val);
+        return std::to_string(yolo.getThreshold());
+}
+
 Yolo::Yolo() : thresh(.24f),
                hier_thresh(.5f),
                nms(0.4f),
@@ -93,6 +100,11 @@ char** Yolo::getNames()
     return names;
 }
 
+float Yolo::getThreshold()
+{
+    return thresh;
+}
+
 void Yolo::detect(const cv::Mat& img, std::vector<DetectedObject>& detection)const
 {
     image im, sized;
@@ -157,4 +169,5 @@ void Yolo::detect(const cv::Mat& img, std::vector<DetectedObject>& detection)con
         free_image(sized);
         throw std::runtime_error("Yolo related error");
     }
+
 }

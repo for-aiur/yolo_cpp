@@ -10,7 +10,7 @@ set(DARKNET_WRAPPER_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "${MO
 set(DARKNET_WRAPPER_LIBRARIES ${MODULENAME} CACHE INTERNAL "${MODULENAME}: library" FORCE)
 
 file(GLOB YOLO_WRAPPER_SOURCE *.h *.cpp)
-add_library(${MODULENAME} STATIC ${YOLO_WRAPPER_SOURCE})
+add_library(${MODULENAME} SHARED ${YOLO_WRAPPER_SOURCE})
 target_link_libraries(
         ${MODULENAME}
         ${DARKNET_CORE_LIBNAME}
@@ -20,3 +20,15 @@ target_link_libraries(
         ${CUDA_CUBLAS_LIBRARIES}
         ${CUDA_curand_LIBRARY}
         ${CMAKE_THREAD_LIBS_INIT})
+
+find_package(PythonLibs 2.7 REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+find_package(Boost COMPONENTS python REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})
+add_library(greet_ext SHARED greet_ext.cpp)
+target_link_libraries(greet_ext ${Boost_LIBRARIES} ${MODULENAME})
+set_target_properties(greet_ext PROPERTIES PREFIX "")
+
+
+
+
