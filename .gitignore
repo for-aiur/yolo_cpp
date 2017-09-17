@@ -13,3 +13,4 @@ CMakeCache.txt
 *.swp
 darknet
 darknet_cpp
+*.py~
