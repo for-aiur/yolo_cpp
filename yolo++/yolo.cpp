@@ -3,24 +3,40 @@
 
 #include <opencv2/highgui/highgui.hpp>
 
-YoloPython::YoloPython(){
+YoloPython::YoloPython() : w(412), h(412), isLoaded(false){
 	yolo = new Yolo();
-   	yolo->setConfigFilePath("../../cfg/tiny-yolo-tayse.cfg");
-    	yolo->setDataFilePath("../../cfg/tayse.data");
-    	yolo->setWeightFilePath("/home/yildirim/Dropbox/tayse/models/tiny-yolo-tayse_16000.weights");
-    	yolo->setAlphabetPath("../../data/labels/");
-    	yolo->setNameListFile("../../data/tayse.names");
-    	yolo->setThreshold(0.16);
+}
+
+void YoloPython::init(std::string weight, std::string names, std::string cfg){
+	if(!isLoaded){
+   		yolo->setConfigFilePath(cfg.c_str());
+    		yolo->setWeightFilePath(weight.c_str());
+    		yolo->setNameListFile(names.c_str());
+		isLoaded=true;
+	}
+}
+ 
+void YoloPython::setImgSize(int w, int h) {
+	this->w = w;
+	this->h = h;
 }
 
 void YoloPython::setThreshold(float val){
 	yolo->setThreshold(val);
 }
 
-int YoloPython::detect(std::string path) {
+int YoloPython::detect(std::string path, int cls) {
                 cv::Mat img = cv::imread(path.c_str());
-		cv::resize(img, img, cv::Size(412,412));
-                yolo->detect(img, objects);
+		cv::resize(img, img, cv::Size(w,h));
+		std::vector<DetectedObject> all_objects;
+                yolo->detect(img, all_objects);
+		
+		std::vector<DetectedObject> objects_local;
+		for(auto obj : all_objects){
+			if (obj.object_class == cls)
+				objects_local.push_back(obj);
+		}
+		objects.swap(objects_local);
                 return objects.size();
 }
 

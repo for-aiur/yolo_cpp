@@ -62,11 +62,15 @@ private:
 
 struct YoloPython{
 	YoloPython();
+	void init(std::string weight, std::string names, std::string cfg);
+	void setImgSize(int w, int h);
 	void setThreshold(float val);
-	int detect(std::string path);
+	int detect(std::string path, int cls);
 	float getComponent(int bb_idx, int component_idx);
 	Yolo* yolo;
         std::vector<DetectedObject> objects;
+	int w,h;
+	bool isLoaded;
 };
 
 
